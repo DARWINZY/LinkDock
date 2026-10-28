@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkDock — Personal Web Launchpad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230EA5E9' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='7' height='7' rx='1.5'/><rect x='14' y='3' width='7' height='7' rx='1.5'/><rect x='14' y='14' width='7' height='7' rx='1.5'/><rect x='3' y='14' width='7' height='7' rx='1.5'/></svg>">
+</head>
+<body>
+  <!-- Top Command Header -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-name">LinkDock</span>
+          <span class="brand-tag">PERSONAL LAUNCHPAD</span>
+        </div>
+      </div>
+
+      <!-- Omni Search & Quick Launch -->
+      <div class="omni-bar-wrap">
+        <div class="omni-bar" id="omniBarContainer">
+          <button type="button" class="engine-selector" id="engineSelectorBtn" title="เปลี่ยน Search Engine สำหรับค้นหาเว็บ">
+            <span id="currentEngineLabel">Filter</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="omni-input" 
+            placeholder="ค้นหาบุ๊กมาร์ก หรือกด Enter เพื่อเปิดลิงก์แรก..." 
+            autocomplete="off"
+          >
+          <div class="omni-Hints">
+            <kbd class="kbd-hint">/</kbd>
+          </div>
+        </div>
+        <!-- Engine dropdown menu -->
+        <div class="engine-menu" id="engineMenu" hidden>
+          <button type="button" class="engine-option active" data-engine="filter">
+            <span class="engine-dot" style="background:#0EA5E9"></span>
+            กรองบุ๊กมาร์ก (Filter Shortcuts)
+          </button>
+          <button type="button" class="engine-option" data-engine="google">
+            <span class="engine-dot" style="background:#10B981"></span>
+            ค้นหาด้วย Google
+          </button>
+          <button type="button" class="engine-option" data-engine="youtube">
+            <span class="engine-dot" style="background:#F43F5E"></span>
+            ค้นหาบน YouTube
+          </button>
+          <button type="button" class="engine-option" data-engine="github">
+            <span class="engine-dot" style="background:#F59E0B"></span>
+            ค้นหาบน GitHub
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Actions & Clock -->
+      <div class="topbar-actions">
+        <div class="live-clock" id="liveClock" title="เวลาปัจจุบัน">00:00</div>
+        
+        <button type="button" class="icon-btn" id="viewModeBtn" title="สลับมุมมอง Grid / Compact">
+          <svg id="viewGridIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </button>
+
+        <div class="dropdown-wrap">
+          <button type="button" class="icon-btn" id="dataMenuBtn" title="สำรอง / นำเข้าข้อมูล (JSON)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M8 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4"/></svg>
+          </button>
+          <div class="dropdown-panel" id="dataMenuPanel" hidden>
+            <div class="dropdown-header">จัดการข้อมูล (Local Storage)</div>
+            <button type="button" class="dropdown-item" id="exportBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              ส่งออกไฟล์ Backup (.json)
+            </button>
+            <button type="button" class="dropdown-item" id="importBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              นำเข้าไฟล์ Backup (.json)
+            </button>
+            <input type="file" id="importFileInput" accept=".json" hidden>
+            <hr class="dropdown-divider">
+            <button type="button" class="dropdown-item danger" id="resetDefaultBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              รีเซ็ตค่าเริ่มต้นตัวอย่าง
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary" id="openAddBookmarkBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+          <span>เพิ่มทางลัด</span>
+          <kbd class="kbd-inline">N</kbd>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Pinned Speed Dial Section -->
+    <section class="dock-section" id="pinnedSection">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="status-led"></span>
+          <h2 class="section-title">SPEED DIAL — ทางลัดติดดาว</h2>
+          <span class="count-pill" id="pinnedCount">0</span>
+        </div>
+        <span class="section-hint">กดปุ่มตัวเลข <kbd>Alt + 1..9</kbd> หรือลากการ์ดเพื่อสลับลำดับ</span>
+      </div>
+      <div class="pinned-grid" id="pinnedGrid"></div>
+    </section>
+
+    <!-- Category Filter Bar & Category Controls -->
+    <section class="category-bar-section">
+      <div class="category-tabs-scroll" id="categoryTabs">
+        <!-- Dynamically rendered tabs -->
+      </div>
+      <div class="category-actions">
+        <button type="button" class="btn-ghost" id="openAddCategoryBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+          <span>สร้างหมวดหมู่</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Categorized Collections Container -->
+    <div id="collectionsContainer" class="collections-container"></div>
+  </main>
+
+  <!-- Footer Status Bar -->
+  <footer class="statusbar">
+    <div class="statusbar-inner">
+      <div class="status-left">
+        <span id="totalStatsText">0 ทางลัด ใน 0 หมวดหมู่</span>
+        <span class="dot-sep">·</span>
+        <span>บันทึกอัตโนมัติในเบราว์เซอร์ (พร้อมใช้งานบน GitHub Pages)</span>
+      </div>
+      <div class="status-right">
+        <span>คีย์ลัด: <kbd>/</kbd> ค้นหา · <kbd>N</kbd> เพิ่มลิงก์ · <kbd>Drag & Drop</kbd> จัดลำดับ</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Add / Edit Bookmark -->
+  <div class="modal-backdrop" id="bookmarkModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="bookmarkModalTitle">
+      <div class="modal-header">
+        <h3 id="bookmarkModalTitle">เพิ่มทางลัดเว็บไซต์</h3>
+        <button type="button" class="modal-close" id="closeBookmarkModal" aria-label="ปิด">&times;</button>
+      </div>
+      <form id="bookmarkForm">
+        <input type="hidden" id="bookmarkIdInput">
+        
+        <div class="form-row">
+          <label for="bookmarkUrlInput">URL เว็บไซต์ <span class="req">*</span></label>
+          <div class="url-input-wrap">
+            <div class="url-favicon-preview" id="urlFaviconPreview" title="ไอคอนเว็บไซต์อัตโนมัติ">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <input type="text" id="bookmarkUrlInput" placeholder="วางลิงก์ เช่น https://youtube.com หรือ github.com" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="bookmarkTitleInput">ชื่อทางลัด (ตั้งชื่อได้ตามต้องการ) <span class="req">*</span></label>
+          <input type="text" id="bookmarkTitleInput" placeholder="เช่น ระบบหลังบ้าน, ตารางงานทีม, YouTube เพลงทำงาน" required>
+        </div>
+
+        <div class="form-row">
+          <label for="bookmarkCategorySelect">หมวดหมู่</label>
+          <select id="bookmarkCategorySelect"></select>
+        </div>
+
+        <div class="form-row">
+          <label for="bookmarkNoteInput">คำอธิบายสั้นๆ / บันทึกช่วยจำ (ไม่บังคับ)</label>
+          <input type="text" id="bookmarkNoteInput" placeholder="เช่น บัญชีบริษัท, อัปเดตทุกวันจันทร์">
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="bookmarkPinnedCheck">
+          <span>ปักหมุดไว้ที่แถบ <strong>Speed Dial (ทางลัดติดดาว)</strong> ด้านบนสุด</span>
+        </label>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancelBookmarkBtn">ยกเลิก</button>
+          <button type="submit" class="btn-primary" id="saveBookmarkBtn">บันทึกทางลัด</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Category -->
+  <div class="modal-backdrop" id="categoryModal" hidden>
+    <div class="modal-card modal-sm" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+      <div class="modal-header">
+        <h3 id="categoryModalTitle">จัดการหมวดหมู่</h3>
+        <button type="button" class="modal-close" id="closeCategoryModal" aria-label="ปิด">&times;</button>
+      </div>
+      <form id="categoryForm">
+        <input type="hidden" id="categoryIdInput">
+        
+        <div class="form-row">
+          <label for="categoryNameInput">ชื่อหมวดหมู่ <span class="req">*</span></label>
+          <input type="text" id="categoryNameInput" placeholder="เช่น งานประจำ, เครื่องมือ AI, บันเทิง" required>
+        </div>
+
+        <div class="form-row">
+          <label>สีสัญลักษณ์หมวดหมู่</label>
+          <div class="color-picker-row" id="categoryColorPicker">
+            <button type="button" class="color-swatch selected" data-color="#0EA5E9" style="background:#0EA5E9" aria-label="Sky Blue"></button>
+            <button type="button" class="color-swatch" data-color="#10B981" style="background:#10B981" aria-label="Emerald"></button>
+            <button type="button" class="color-swatch" data-color="#F59E0B" style="background:#F59E0B" aria-label="Amber"></button>
+            <button type="button" class="color-swatch" data-color="#F43F5E" style="background:#F43F5E" aria-label="Rose"></button>
+            <button type="button" class="color-swatch" data-color="#8B5CF6" style="background:#8B5CF6" aria-label="Violet"></button>
+            <button type="button" class="color-swatch" data-color="#EC4899" style="background:#EC4899" aria-label="Pink"></button>
+            <button type="button" class="color-swatch" data-color="#14B8A6" style="background:#14B8A6" aria-label="Teal"></button>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-danger-outline" id="deleteCategoryBtn" hidden>ลบหมวดหมู่</button>
+          <div style="flex:1"></div>
+          <button type="button" class="btn-secondary" id="cancelCategoryBtn">ยกเลิก</button>
+          <button type="submit" class="btn-primary">บันทึก</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
