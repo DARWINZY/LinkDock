@@ -3,87 +3,61 @@
  * Pure Vanilla JS (Zero Backend Required — GitHub Pages Ready)
  */
 
-const STORAGE_KEY = 'linkdock_data_v1';
+const STORAGE_KEY = 'linkdock_data_v2';
 const VIEW_KEY = 'linkdock_view_mode';
 
 const DEFAULT_DATA = {
   categories: [
-    { id: 'cat-work', name: 'Workspace & งานประจำ', color: '#0EA5E9' },
-    { id: 'cat-dev', name: 'Dev & AI Tools', color: '#10B981' },
-    { id: 'cat-social', name: 'Social & บันเทิง', color: '#F43F5E' },
-    { id: 'cat-docs', name: 'คลังความรู้ & เอกสาร', color: '#F59E0B' }
+    {
+      id: 'cat-work',
+      name: 'Road to GED',
+      color: '#0EA5E9'
+    }
   ],
   bookmarks: [
     {
-      id: 'bm-1',
-      title: 'GitHub Repositories',
-      url: 'https://github.com',
-      categoryId: 'cat-dev',
-      icon: '',
-      note: 'จัดการ Source Code และ GitHub Pages',
-      pinned: true
-    },
-    {
-      id: 'bm-2',
-      title: 'Gmail กล่องจดหมาย',
-      url: 'https://mail.google.com',
-      categoryId: 'cat-work',
-      icon: '',
-      note: 'อีเมลหลักสำหรับติดต่องาน',
-      pinned: true
-    },
-    {
-      id: 'bm-3',
-      title: 'Google Calendar',
-      url: 'https://calendar.google.com',
-      categoryId: 'cat-work',
-      icon: '',
-      note: 'ตารางประชุมและนัดหมายรายสัปดาห์',
-      pinned: true
-    },
-    {
-      id: 'bm-4',
-      title: 'ChatGPT / AI Assistant',
-      url: 'https://chatgpt.com',
-      categoryId: 'cat-dev',
-      icon: '',
-      note: 'ผู้ช่วยคิดงานและตรวจสอบโค้ด',
-      pinned: true
-    },
-    {
-      id: 'bm-5',
-      title: 'YouTube Studio & Music',
-      url: 'https://www.youtube.com',
-      categoryId: 'cat-social',
-      icon: '',
-      note: 'ฟังเพลง Lofi ระหว่างทำงาน',
-      pinned: false
-    },
-    {
       id: 'bm-6',
-      title: 'Notion Workspace',
-      url: 'https://www.notion.so',
+      title: 'GetSumMath',
+      url: 'https://www.youtube.com/@GetSumMath/courses',
       categoryId: 'cat-work',
       icon: '',
-      note: 'สมุดจดบันทึกโปรเจกต์และ Wiki',
+      note: 'ช่องนีเด่น Social, Math',
       pinned: false
     },
     {
-      id: 'bm-7',
-      title: 'Figma Design Board',
-      url: 'https://www.figma.com',
-      categoryId: 'cat-dev',
+      id: 'bm-1793212876138',
+      title: 'UltamateAlgebra',
+      url: 'https://www.youtube.com/@UltimateAlgebra/courses',
+      categoryId: 'cat-work',
       icon: '',
-      note: 'ออกแบบ UI / Wireframe',
+      note: 'ช่องนีเด่น Math, Sci',
       pinned: false
     },
     {
-      id: 'bm-8',
-      title: 'MDN Web Docs',
-      url: 'https://developer.mozilla.org',
-      categoryId: 'cat-docs',
+      id: 'bm-1793212928102',
+      title: 'TestPrepChampions',
+      url: 'https://www.youtube.com/@TestPrepChampions/playlists',
+      categoryId: 'cat-work',
       icon: '',
-      note: 'คู่มืออ้างอิง HTML, CSS, JavaScript',
+      note: 'ช่องนีเด่น RLA, Social',
+      pinned: false
+    },
+    {
+      id: 'bm-1793212987999',
+      title: 'PurelyPersistent',
+      url: 'https://www.youtube.com/@PurelyPersistent/playlists',
+      categoryId: 'cat-work',
+      icon: '',
+      note: 'ดีหมด',
+      pinned: false
+    },
+    {
+      id: 'bm-1793213057180',
+      title: 'คลังข้อสอบ',
+      url: 'https://www.gedpracticequestions.com/',
+      categoryId: 'cat-work',
+      icon: '',
+      note: 'Mock examination',
       pinned: false
     }
   ]
